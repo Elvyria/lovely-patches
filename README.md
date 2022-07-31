@@ -1,2 +1,5 @@
-# lovely-patches
-Collection of various software patches
+# Lovely Patches
+Collection of various software patches.
+
+### Software (Tested Version)
+  * *htop (3.2.1)*
