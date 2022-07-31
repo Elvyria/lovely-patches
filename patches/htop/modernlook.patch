@@ -1,0 +1,42 @@
+--- a/FunctionBar.c
++++ b/FunctionBar.c
+@@ -18,7 +18,7 @@
+ #include "XUtils.h"
+ 
+ 
+-static const char* const FunctionBar_FKeys[] = {"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", NULL};
++static const char* const FunctionBar_FKeys[] = {" F1 ", " F2 ", " F3 ", " F4 ", " F5 ", " F6 ", " F7 ", " F8 ", " F9 ", " F10 ", NULL};
+ 
+ static const char* const FunctionBar_FLabels[] = {"      ", "      ", "      ", "      ", "      ", "      ", "      ", "      ", "      ", "      ", NULL};
+ 
+--- a/MainPanel.c
++++ b/MainPanel.c
+@@ -21,13 +21,13 @@
+ #include "XUtils.h"
+ 
+ 
+-static const char* const MainFunctions[]     = {"Help  ", "Setup ", "Search", "Filter", "Tree  ", "SortBy", "Nice -", "Nice +", "Kill  ", "Quit  ", NULL};
+-static const char* const MainFunctions_ro[]  = {"Help  ", "Setup ", "Search", "Filter", "Tree  ", "SortBy", "      ", "      ", "      ", "Quit  ", NULL};
++static const char* const MainFunctions[]     = {" Help ", " Setup ", " Search ", " Filter ", " Tree ", " SortBy ", " Nice- ", " Nice+ ", " Kill ", " Quit ", NULL};
++static const char* const MainFunctions_ro[]  = {" Help ", " Setup ", " Search ", " Filter ", " Tree ", " SortBy ", "       ", "       ", "      ", " Quit ", NULL};
+ 
+ void MainPanel_updateLabels(MainPanel* this, bool list, bool filter) {
+    FunctionBar* bar = MainPanel_getFunctionBar(this);
+-   FunctionBar_setLabel(bar, KEY_F(5), list   ? "List  " : "Tree  ");
+-   FunctionBar_setLabel(bar, KEY_F(4), filter ? "FILTER" : "Filter");
++   FunctionBar_setLabel(bar, KEY_F(5), list   ? "List  " : " Tree  ");
++   FunctionBar_setLabel(bar, KEY_F(4), filter ? "FILTER" : " Filter ");
+ }
+ 
+ static void MainPanel_pidSearch(MainPanel* this, int ch) {
+--- a/Meter.c
++++ b/Meter.c
+@@ -238,7 +238,7 @@
+             if (CRT_colorScheme == COLORSCHEME_MONOCHROME) {
+                RichString_setChar(&bar, startPos + j, BarMeterMode_characters[i]);
+             } else {
+-               RichString_setChar(&bar, startPos + j, '|');
++               RichString_setChar(&bar, startPos + j, L'⯀');
+             }
+          }
+       offset = nextOffset;
