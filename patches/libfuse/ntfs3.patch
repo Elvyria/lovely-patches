@@ -1,0 +1,10 @@
+--- a/util/fusermount.c	2023-03-25 06:35:54.063661044 +0300
++++ b/util/fusermount.c	2023-03-25 06:36:53.166400655 +0300
+@@ -1023,6 +1023,7 @@
+ 		0x01021994 /* TMPFS_MAGIC */,
+ 		0x24051905 /* UBIFS_SUPER_MAGIC */,
+ 		0x736675005346544e /* UFSD */,
++		0x7366746e /* NTFS3 */,
+ 		0x58465342 /* XFS_SB_MAGIC */,
+ 		0x2FC12FC1 /* ZFS_SUPER_MAGIC */,
+ 	};
