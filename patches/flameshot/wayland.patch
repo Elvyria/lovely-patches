@@ -1,0 +1,63 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index b1abf37..f7db018 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -10,9 +10,7 @@ find_package(
+         DBus
+         LinguistTools)
+ 
+-if (USE_WAYLAND_CLIPBOARD)
+-    find_package(KF5GuiAddons)
+-endif()
++find_package(KF5GuiAddons)
+ 
+ set(CMAKE_AUTOMOC ON)
+ set(CMAKE_AUTORCC ON)
+@@ -218,17 +216,10 @@ target_link_libraries(
+ 
+ )
+ 
+-if (USE_WAYLAND_CLIPBOARD)
+-  if(!USE_WAYLAND_GRIM)
+-    message(WARNING "You activated the USE_WAYLAND_CLIPBOARD option, but did not activate the USE_WAYLAND_GRIM option. Flameshot will use the dbus protocol to support wayland. If you use wlroots-based wayland, it is recommended to enable USE_WAYLAND_GRIM")
+-  endif()
+-  target_compile_definitions(flameshot PRIVATE USE_WAYLAND_CLIPBOARD=1)
+-  target_link_libraries(flameshot KF5::GuiAddons)
+-endif()
++target_compile_definitions(flameshot PRIVATE USE_WAYLAND_CLIPBOARD=1)
++target_link_libraries(flameshot KF5::GuiAddons)
+ 
+-if (USE_WAYLAND_GRIM)
+-    target_compile_definitions(flameshot PRIVATE USE_WAYLAND_GRIM=1)
+-endif()
++target_compile_definitions(flameshot PRIVATE USE_WAYLAND_GRIM=1)
+ 
+ if (APPLE)
+     set(MACOSX_BUNDLE_IDENTIFIER "org.flameshot")
+diff --git a/src/main.cpp b/src/main.cpp
+index 23d3157..f2fd03f 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -63,7 +63,6 @@ void requestCaptureAndWait(const CaptureRequest& req)
+ #endif
+     });
+     QObject::connect(flameshot, &Flameshot::captureFailed, []() {
+-        AbstractLogger::info() << "Screenshot aborted.";
+         qApp->exit(1);
+     });
+     qApp->exec();
+diff --git a/src/utils/screengrabber.cpp b/src/utils/screengrabber.cpp
+index 062c4bd..d313f94 100644
+--- a/src/utils/screengrabber.cpp
++++ b/src/utils/screengrabber.cpp
+@@ -141,10 +141,6 @@ QPixmap ScreenGrabber::grabEntireDesktop(bool& ok)
+                   "activate the grim-based general wayland screenshot adapter");
+                 freeDesktopPortal(ok, res);
+ #else
+-                AbstractLogger::warning()
+-                  << tr("grim's screenshot component is implemented based on "
+-                        "wlroots, it may not be used in GNOME or similar "
+-                        "desktop environments");
+                 generalGrimScreenshot(ok, res);
+ #endif
+                 break;
